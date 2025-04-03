@@ -1,0 +1,94 @@
+﻿@model WebMovie.Models.Movie
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xoá</h1>
+
+<h3>Chắc chắn xoá?</h3>
+<div>
+    <h4>Phim</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LinkInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LinkInfo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.view)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.view)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TrailerUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrailerUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="Movie Image" style="max-width:200px" ; />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genre.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Country.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" asp-area="Admin" asp-controller="MovieManager">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-area="Admin" asp-controller="MovieManager">Quay về</a>
+    </form>
+</div>

@@ -1,0 +1,85 @@
+﻿@model X.PagedList.IPagedList<WebMovie.Models.Movie>
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/style.css">
+<main>
+    <article>
+        <!--
+          - #UPCOMING
+        -->
+
+        <section class="upcoming">
+            <div class="container">       
+                <div class="flex-wrapper">
+
+                    <div class="title-wrapper">
+                        <p class="section-subtitle">Online Streaming</p>
+                        <h2 class="h2 section-title">Phim mới cập nhật</h2>
+                    </div>
+                </div>
+                <ul class="movies-list">
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <div class="movie-card">
+
+                                <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                    <figure class="card-banner">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="@Html.DisplayFor(modelItem => item.Name) poster">
+                                    </figure>
+                                </a>
+
+                                <div class="title-wrapper">
+                                    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                        <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+                                    </a>
+
+                                    <time>@Html.DisplayFor(modelItem => item.ReleaseYear)</time>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="badge badge-outline">@Html.DisplayFor(modelItem => item.view) view</div>
+                                    <div class="badge">@Html.DisplayFor(modelItem => item.Genre.Name)</div>
+
+                                    <div class="duration">
+                                        <ion-icon name="time-outline"></ion-icon>
+
+                                        <time datetime="PT122M">@Html.DisplayFor(modelItem => item.Duration) min</time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+
+            </div>
+
+        </section>
+
+        <!-- Phân trang -->
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new
+                {
+                    page,
+                }) + "&page=" + page,
+                     new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                LinkToFirstPageFormat = "<<",
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToLastPageFormat = ">>"
+            })
+        </div>
+    </article>
+
+</main>
+

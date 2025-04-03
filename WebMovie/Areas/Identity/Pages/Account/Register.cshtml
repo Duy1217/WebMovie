@@ -1,0 +1,83 @@
+﻿@page
+@model RegisterModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        .register-card {
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 400px; /* Set maximum width */
+            margin: 0 auto; /* Center the card horizontally */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Background image -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div style="margin-bottom: 150px;"></div>
+                <div class="col-md-4 ">
+                    <section>
+                        <h1>@ViewData["Title"]</h1>
+                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="register-card">
+                            <h2>Tạo tài khoản mới</h2>
+                            <hr />
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.FullName">Họ tên</label>
+                                <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true" placeholder="Họ tên" style="background-color:#F7F7F7;" />
+                                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.Email">Email</label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" style="background-color:#F7F7F7;    />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.Password">Mật khẩu</label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" style="background-color:#F7F7F7;" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.ConfirmPassword">Xác nhận mật khẩu</label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" ; autocomplete="new-password" aria-required="true" placeholder="password" style="background-color:#F7F7F7;" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 20px;"></div>
+@*                             <div class="form-floating mb-3">
+                                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control" style="background-color:#F7F7F7;">
+                                    <option disabled selected>-Select Role-</option>
+                                </select>
+                            </div> *@
+
+                            <div style="margin-bottom: 30px;"></div>
+                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Đăng ký</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- Background image -->
+    </header>
+    <!--Main Navigation-->
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

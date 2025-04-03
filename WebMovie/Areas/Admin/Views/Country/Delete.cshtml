@@ -1,0 +1,26 @@
+﻿@model WebMovie.Models.Country
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Xoá quốc gia</h2>
+
+<h3>Chắc chắn xoá?</h3>
+<div>
+    <h4>Country</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-area="Admin" asp-controller="Country">Quay về</a>
+    </form>
+</div>

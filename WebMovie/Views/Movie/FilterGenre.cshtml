@@ -1,0 +1,117 @@
+﻿@model X.PagedList.IPagedList<WebMovie.Models.Movie>
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/style.css">
+<main>
+    <article>
+        <!--
+          - #UPCOMING
+        -->
+
+        <section class="upcoming">
+            <div class="container">
+                <br />
+                <br />
+                <label class="mr-2 text-warning">Thể loại:</label>
+                <form asp-action="FilterGenre" method="get">
+                    <div class="form-inline" >
+                        <select asp-items="ViewBag.SelectedGenre" name="selectedGenre" class="form-control mr-2 " onchange="this.form.submit()">
+                            <option value="">Chọn thể loại</option>
+                        </select>
+                    </div>
+                </form>
+                <br />
+
+                <div class="flex-wrapper">
+
+                    <div class="title-wrapper">
+                        <p class="section-subtitle">Online Streaming</p>
+                        <h2 class="h2 section-title">Phim theo thể loại</h2>
+                    </div>
+                </div>
+                <ul class="movies-list">
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <div class="movie-card">
+
+                                <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                    <figure class="card-banner">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="@Html.DisplayFor(modelItem => item.Name) poster">
+                                    </figure>
+                                </a>
+
+                                <div class="title-wrapper">
+                                    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                        <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+                                    </a>
+
+                                    <time>@Html.DisplayFor(modelItem => item.ReleaseYear)</time>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="badge badge-outline">@Html.DisplayFor(modelItem => item.view) view</div>
+                                    <div class="badge">@Html.DisplayFor(modelItem => item.Genre.Name)</div>
+                                    <div class="duration">
+                                        <ion-icon name="time-outline"></ion-icon>
+
+                                        <time datetime="PT122M">@Html.DisplayFor(modelItem => item.Duration) min</time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+
+            </div>
+
+        </section>
+
+        <!-- Phân trang -->
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("FilterGenre", new
+                {
+                    page,
+                    selectedGenre = ViewBag.Genres,
+                }) + "&page=" + page,
+                     new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                LinkToFirstPageFormat = "<<",
+                LinkToPreviousPageFormat = "<",
+                LinkToNextPageFormat = ">",
+                LinkToLastPageFormat = ">>"
+            })
+        </div>
+    </article>
+
+</main>
+<style>
+    .filter-form {
+        border: 2px solid #ccc; /* Viền màu xám */
+        padding: 10px; /* Thêm một ít padding để trang trí */
+        border-radius: 5px; /* Góc bo tròn */
+    }
+
+    /* CSS cho phần tử select */
+    .form-control {
+        background-color: transparent; /* Làm cho nền trong suốt */
+        color: yellow; /* Màu chữ vàng */
+        border: none; /* Loại bỏ viền mặc định */
+        outline: none; /* Loại bỏ đường viền */
+    }
+
+        /* Tùy chọn: Thêm hiệu ứng khi di chuột qua */
+        .form-control:hover {
+            background-color: rgba(128, 128, 128, 0.2); /* Màu nền xám với độ mờ */
+        }
+
+</style>

@@ -1,0 +1,27 @@
+﻿@model WebMovie.Models.Genre
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xoá</h1>
+
+<h3>Chắc chắn xoá?</h3>
+<div>
+    <h4>Thể loại</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-area="Admin" asp-controller="Genre">Quay về</a>
+    </form>
+</div>

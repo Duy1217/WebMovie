@@ -1,0 +1,62 @@
+﻿@page
+@model LoginModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Log in</title>
+    <style>
+        .login-card {
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 400px; /* Set maximum width */
+            margin: 0 auto; /* Center the card horizontally */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Background image -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div style="margin-bottom: 200px;"></div>
+                <div class="col-md-6">
+                    <div class="login-card">
+                        <h2 class="login-title">Đăng nhập</h2>
+                        <form id="account" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.Email" class="form-label">Email</label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" style="background-color:#F7F7F7;"/>                                
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="form-floating mb-3">
+                                <label asp-for="Input.Password" class="form-label">Mật khẩu</label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" style="background-color:#F7F7F7;"/>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div style="margin-bottom: 10px;"></div>
+                            <div class="login-links">
+                            <p><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Đăng ký tài khoản mới</a></p
+                            </div>
+                            <div style="margin-bottom: 20px;"></div>
+                            <div class="login-submit-btn">
+                                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Đăng nhập</button>
+                            </div>
+                        </form>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Background image -->
+    </header>
+    <!--Main Navigation-->
+</body>
+</html>

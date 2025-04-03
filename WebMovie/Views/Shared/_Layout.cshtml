@@ -1,0 +1,219 @@
+﻿
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!--
+      - custom css link
+    -->
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <!--
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  - #HEADER
+-->
+<body id="top">
+    <header class="header" data-header>
+        <div class="container">
+
+            <div class="overlay" data-overlay></div>
+
+            <a class="logo" asp-controller="Home" asp-action="Index">
+                <img src="~/css/Radiant-Rank-77419890.png" alt="RadiantFilm logo">
+            </a>
+
+            <div class="header-actions " >
+                @using (Html.BeginForm("search", "Movie", FormMethod.Get))
+                {
+                    <p>
+                        @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                    </p>
+                    <button class="search-btn" type="submit" value="Search">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                }
+
+                <!--sign in-->
+                <partial name="_LoginPartial" />
+
+            </div>
+
+            <button class="menu-open-btn" data-menu-open-btn>
+                <ion-icon name="reorder-two"></ion-icon>
+            </button>
+
+            <nav class="navbar" data-navbar>
+
+                <div class="navbar-top">    
+
+                    <a class="logo" asp-controller="Home" asp-action="Index">
+                        <img src="~/css/Radiant-Rank-77419890.png" alt="RadianFilm logo">
+                    </a>
+                    <button class="menu-close-btn" data-menu-close-btn>
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <ul class="navbar-list">
+
+                    <li>
+                        <a class="navbar-link" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a class="navbar-link" asp-controller="Movie" asp-action="Index">Phim mới cập nhật</a>
+                    </li>
+                    <li>
+                        <a class="navbar-link" asp-controller="Movie" asp-action="FilterGenre">Thể Loại</a>
+                    </li>
+                    <li>
+                        <a class="navbar-link" asp-controller="Movie" asp-action="FilterCountry">Quốc gia</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-social-list">
+
+
+                    <li>
+                        <a href="https://www.facebook.com/" target="_blank" class="navbar-social-link" >
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://twitter.com/" target="_blank" class="navbar-social-link">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.pinterest.com/" target="_blank" class="navbar-social-link">
+                            <ion-icon name="logo-pinterest"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.instagram.com/" target="_blank" class="navbar-social-link">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--
+      - #FOOTER
+    -->
+
+    <footer class="footer">
+
+        <div class="footer-top">
+            <div class="container">
+
+                <div class="footer-brand-wrapper">
+
+                    <a class="logo" asp-controller="Home" asp-action="Index">
+                        <img src="~/css/Radiant-Rank-77419890.png" alt="RadiantFilm logo">
+                    </a>
+
+                    <ul class="footer-list">
+                        <li>
+                            <a class="footer-link" asp-controller="Home" asp-action="Index">Trang Chủ</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" asp-controller="Movie" asp-action="Index">Phim</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="quicklink-wrapper">
+
+                    <ul class="quicklink-list">
+
+                        <li>
+                            <a href="#" class="quicklink-link">Faq</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="quicklink-link">Trợ giúp</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="quicklink-link">Chính sách sử dụng</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="quicklink-link">Riêng tư</a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="social-list">
+
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank" class="social-link">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://twitter.com/" target="_blank" class="social-link">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.pinterest.com/" target="_blank" class="social-link">
+                                <ion-icon name="logo-pinterest"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank" class="social-link">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </footer>
+    <a href="#top" class="go-top" data-go-top>
+        <ion-icon name="chevron-up"></ion-icon>
+    </a>
+    <!--
+      - custom js link
+    -->
+    <script src="~/js/script.js"></script>
+
+    <!--
+      - ionicon link
+    -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

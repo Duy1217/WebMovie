@@ -1,0 +1,145 @@
+﻿@model X.PagedList.IPagedList<WebMovie.Models.Movie>
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Phim</h1>
+@using (Html.BeginForm("Index", "MovieManager", FormMethod.Get))
+{
+    <p>
+        Tìm kiếm: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+
+        <input type="submit" value="Search" />
+    </p>
+}
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Index" method="get">
+                <div class="form-inline">
+                    <label class="mr-2">Thể loại:</label>
+                    <select asp-items="ViewBag.SelectedGenre" name="selectedGenre" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="">Chọn thể loại</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form asp-action="Index" method="get">
+                <div class="form-inline">
+                    <label class="mr-2">Quốc gia:</label>
+                    <select asp-items="ViewBag.SelectedCountry" name="selectedCountry" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="">Chọn quốc gia</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p>
+    <a asp-action="Add" asp-area="Admin" asp-controller="MovieManager">Tạo mới</a>
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                Tên Phim
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Đạo diễn
+            </th>
+            <th>
+                Link chi tiết
+            </th>
+            <th>
+                Thời lượng
+            </th>
+            <th>
+                Năm phát hành
+            </th>
+            <th>
+                Lượt xem
+            </th>
+            <th>
+                Đường dẫn trailer
+            </th>
+            <th>
+                Đường dẫn ảnh
+            </th>
+            <th>
+                Đường dẫn video
+            </th>
+            <th>
+                Thể loại
+            </th>
+            <th>
+                Quốc gia
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Director)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.view)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrailerUrl)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="Movie Image" style="max-width:200px" ; />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    <a asp-action="Update" asp-area="Admin" asp-controller="MovieManager" asp-route-id="@item.Id">Chỉnh sửa</a>
+                    <a asp-action="Detail" asp-area="Admin" asp-controller="MovieManager" asp-route-id="@item.Id">Chi tiết</a>
+                    <a asp-action="Delete" asp-area="Admin" asp-controller="MovieManager" asp-route-id="@item.Id">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+    {
+        page,
+        selectedGenre = ViewBag.Genres,
+        selectedCountry = ViewBag.Countries,
+        searchString = ViewBag.SearchString
+    }) + "&page=" + page)

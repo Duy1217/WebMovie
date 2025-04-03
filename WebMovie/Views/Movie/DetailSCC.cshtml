@@ -1,0 +1,126 @@
+﻿@model WebMovie.Models.Movie
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/style.css">
+<main>
+    <article>
+
+        <!--
+          - #MOVIE DETAIL
+        -->
+
+        <section class="movie-detail">
+            <div class="container">
+
+                <figure class="movie-detail-banner">
+
+                    <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.Name) poster">
+                </figure>
+
+                <div class="movie-detail-content">
+
+                    
+                    <h1 class="h1 detail-title">
+                        @Html.DisplayFor(model => model.Name)<strong></strong>
+                    </h1>
+                    <p class="detail-subtitle">@Html.DisplayFor(model => model.Director)</p>
+                    <div class="meta-wrapper">
+
+                        <div class="badge-wrapper">
+                            <div class="badge badge-fill">@Html.DisplayFor(model => model.Country.Name)</div>
+                            <div class="badge badge-outline">@Html.DisplayFor(model => model.Genre.Name)</div>
+                        </div>
+
+                        <div class="ganre-wrapper">
+                            <a class="text-white" href="@Html.DisplayFor(model => model.LinkInfo)" target="_blank">Chi tiết phim</a>
+                        </div>
+
+                        <div class="date-time">
+
+                            <div>
+                                <ion-icon name="calendar-outline"></ion-icon>
+
+                                <time datetime="2021">@Html.DisplayFor(model => model.ReleaseYear)</time>
+                            </div>
+
+                            <div>
+                                <ion-icon name="time-outline"></ion-icon>
+
+                                <time datetime="PT115M">@Html.DisplayFor(model => model.Duration) min</time>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="storyline">
+                        @Html.DisplayFor(model => model.Description)
+                    </p>
+
+                    <div class="details-actions">
+                        <button id="watchMovie" class="btn btn-primary" onclick="playTrailer()">
+                            <ion-icon name="play"></ion-icon>
+                            <span>Trailer</span>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="watchMovieModel" tabindex="-1" role="dialog" aria-labelledby="watchMovieModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <!-- Đây là nơi bạn có thể thêm iframe cho video YouTube -->
+                                    <iframe id="youtubeVideo" width="854px" height="480px" src="" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="@Html.DisplayFor(model => model.MovieUrl)" download class="download-btn">
+                        <span>Download</span>
+                        <ion-icon name="download-outline"></ion-icon>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+    </article>
+</main>
+<style>
+    /* Loại bỏ phần viền trắng xung quanh iframe */
+    .modal-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #youtubeVideo {
+        width: 854px;
+        height: 480px;
+        border: none; /* Loại bỏ đường viền */
+    }
+</style>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#watchMovie").click(function () {
+                // Lấy URL của video và gán cho iframe
+                var videoUrl = "@Model.TrailerUrl"; // Thay VIDEO_ID bằng ID của video YouTube
+                $("#youtubeVideo").attr("src", videoUrl);
+                // Hiển thị modal khi nhấn vào nút "Trailer"
+                $("#watchMovieModel").modal("show");
+            });
+
+            // Xử lý sự kiện khi modal được ẩn đi
+            $("#watchMovieModel").on("hidden.bs.modal", function () {
+                // Dừng video khi modal được đóng
+                var video = document.getElementById("youtubeVideo");
+                video.pause();
+                video.removeAttribute("src");
+            });
+        });
+
+    </script>
+}
+}

@@ -1,0 +1,44 @@
+﻿@model X.PagedList.IPagedList<WebMovie.Models.Country>
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Quốc gia</h2>
+@using (Html.BeginForm("Index", "Country", FormMethod.Get))
+{
+    <p>
+        Tìm kiếm: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<p>
+    <a asp-action="Add" asp-area="Admin" asp-controller="Country">Tạo mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quốc gia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var country in Model)
+        {
+            <tr>
+                <td>@country.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-area="Admin" asp-controller="Country" asp-route-id="@country.Id">chỉnh sửa</a>
+                    <a asp-action="Delete" asp-area="Admin" asp-controller="Country" asp-route-id="@country.Id">xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var searchString = ViewBag.SearchString != null ? ViewBag.SearchString.ToString() : null;
+}
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString }))

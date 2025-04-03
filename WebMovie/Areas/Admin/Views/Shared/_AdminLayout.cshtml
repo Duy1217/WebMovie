@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Admin/css/Admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Định dạng CSS cho menu dashboard */
+        /* Tùy chỉnh tại đây */
+    </style>
+</head>
+<body>  
+    <div class='dashboard'>         
+        <div class="dashboard-nav">        
+            <header class="column-count:2">
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i></a>            
+                <a href="~/Admin/Admins" class="brand-logo">
+                    <i class="fas fa-anchor"></i> <span>WEBPHIM</span>
+                </a>
+            </header>
+            <div class="nav-item-divider"></div>
+            <a href="~/" class="dashboard-nav-item">
+                <i class="fas fa-home"></i> TRANG CHỦ
+            </a>           
+            <nav class="dashboard-nav-list">              
+                <a href="~/Admin/Genre" class="dashboard-nav-item">
+                    <i class="fas fa-list"></i> THỂ LOẠI
+                </a>
+                <a href="~/Admin/Country" class="dashboard-nav-item">
+                    <i class="fas fa-globe"></i> QUỐC GIA
+                </a>
+                <a href="~/Admin/MovieManager" class="dashboard-nav-item">
+                    <i class="fas fa-film"></i> PHIM
+                </a>
+                
+
+                
+            </nav>
+        </div>
+        <div class='dashboard-app'>
+            <header class='dashboard-toolbar'>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>               
+            </header>
+
+            <div class='dashboard-content'>
+                <div class='container'>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Admin/js/Admin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,229 @@
+﻿@model IEnumerable<WebMovie.Models.Movie>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/style.css">
+<main>
+    <article>
+        <!--
+          - #HERO
+        -->
+
+        <section class="hero">
+            <div class="container">
+
+                <div class="hero-content">
+                    <p class="hero-subtitle">RadiantFilm</p>
+                    <h1 class="h1 hero-title">
+                        Unlimited <strong>Movie</strong>& More.
+                    </h1>
+
+                    <div class="meta-wrapper">
+
+                        <div class="badge-wrapper">
+                            <div class="badge badge-fill">PG 18</div>
+
+                            <div class="badge badge-outline">HD</div>
+                        </div>
+
+                        <div class="ganre-wrapper">
+                            <a href="#">Hành động,</a>
+
+                            <a href="#">Kịnh tính</a>
+                        </div>
+
+                        <div class="date-time">
+
+                            <div>
+                                <ion-icon name="calendar-outline"></ion-icon>
+
+                                <time datetime="2022">2022</time>
+                            </div>
+
+                            <div>
+                                <ion-icon name="time-outline"></ion-icon>
+
+                                <time datetime="PT128M">128 min</time>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!--
+          - #UPCOMING
+        -->
+
+        <section class="upcoming">
+            <div class="container">
+
+                <div class="flex-wrapper">
+
+                    <div class="title-wrapper">
+                        <p class="section-subtitle">Online Streaming</p>
+                        <h2 class="h2 section-title">Sắp công chiếu</h2>
+                    </div>
+                </div>
+
+                <ul class="movies-list  has-scrollbar">
+                    @{
+                        var currentYear = DateTime.Now.Year;
+                        var moviesAfterCurrentYear = Model.Where(m => m.ReleaseYear > currentYear);
+                    }
+                    @foreach (var item in moviesAfterCurrentYear)
+                    {
+                        <li>
+                            <div class="movie-card">
+
+                                <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                    <figure class="card-banner">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageUrl)"
+                                             alt="@Html.DisplayFor(modelItem => item.Name) poster">
+                                    </figure>
+                                </a>
+
+                                <div class="title-wrapper">
+                                    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                        <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+                                    </a>
+
+                                    <time>@Html.DisplayFor(modelItem => item.ReleaseYear)</time>
+                                </div>
+
+
+                                <div class="card-meta">
+                                    <div class="badge badge-outline">@Html.DisplayFor(modelItem => item.view) view</div>
+                                    <div class="badge">@Html.DisplayFor(modelItem => item.Genre.Name)</div>
+                                    <div class="duration">
+
+                                        <ion-icon name="time-outline"></ion-icon>
+
+                                        <time datetime="PT137M">@Html.DisplayFor(modelItem => item.Duration) min</time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+        </section>
+        <!--
+          - #De Xuat
+        -->
+        <section class="upcoming">
+            <div class="container">
+
+                <div class="flex-wrapper">
+
+                    <div class="title-wrapper">
+                        <p class="section-subtitle">Online Streaming</p>
+
+                        <h2 class="h2 section-title">Phim Đề Xuất</h2>
+                    </div>
+                </div>
+
+                <ul class="movies-list  has-scrollbar">
+                    @{
+                        var current = DateTime.Now.Year;
+                        var randomMovies = Model.Where(m => m.ReleaseYear < current).OrderBy(x => Guid.NewGuid()).Take(8);
+                    }
+                    @foreach (var item in randomMovies)
+                    {
+                        <li>
+                            <div class="movie-card">
+
+                                <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                    <figure class="card-banner">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageUrl)"
+                                             alt="@Html.DisplayFor(modelItem => item.Name) poster">
+                                    </figure>
+                                </a>
+
+                                <div class="title-wrapper">
+                                    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                        <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+                                    </a>
+
+                                    <time>@Html.DisplayFor(modelItem => item.ReleaseYear)</time>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="badge badge-outline">@Html.DisplayFor(modelItem => item.view) view</div>
+                                    <div class="badge">@Html.DisplayFor(modelItem => item.Genre.Name)</div>
+                                    <div class="duration">
+                                        <ion-icon name="time-outline"></ion-icon>
+
+                                        <time datetime="PT137M">@Html.DisplayFor(modelItem => item.Duration) min</time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </section>
+        <!--
+          - #TOP RATED
+        -->
+
+        <section class="upcoming">
+            <div class="container">
+
+                <div class="flex-wrapper">
+
+                    <div class="title-wrapper">
+                        <p class="section-subtitle">Online Streaming</p>
+                        <h2 class="h2 section-title">Nhiều Lượt Xem</h2>
+                    </div>
+                </div>
+                <ul class="movies-list has-scrollbar">
+                    @{
+                        // Sắp xếp danh sách phim theo số lượt xem giảm dần và lấy 8 phim đầu tiên
+                        var topViewedMovies = Model.OrderByDescending(m => m.view).Take(8);
+                    }
+                    @foreach (var item in topViewedMovies)
+                    {
+                        <li>
+                            <div class="movie-card">
+
+                                <a asp-controller ="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                    <figure class="card-banner">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="@Html.DisplayFor(modelItem => item.Name) poster">
+                                    </figure>
+                                </a>
+
+                                <div class="title-wrapper">
+                                    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@item.Id">
+                                        <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+                                    </a>
+
+                                    <time>@Html.DisplayFor(modelItem => item.ReleaseYear)</time>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="badge badge-outline">@Html.DisplayFor(modelItem => item.view) view</div>
+                                    <div class="badge">@Html.DisplayFor(modelItem => item.Genre.Name)</div>
+                                    <div class="duration">
+                                        <ion-icon name="time-outline"></ion-icon>
+
+                                        <time datetime="PT122M">@Html.DisplayFor(modelItem => item.Duration) min</time>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </section>
+    </article>
+</main>

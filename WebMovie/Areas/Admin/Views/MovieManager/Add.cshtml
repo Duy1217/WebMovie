@@ -1,0 +1,61 @@
+﻿@model WebMovie.Models.Movie
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Add Product";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Tạo mới</h2>
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name">Tên</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Mô tả</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="textdanger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Director">Đạo diễn</label>
+        <input asp-for="Director" class="form-control" />
+        <span asp-validation-for="Director" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LinkInfo">Link chi tiết</label>
+        <input asp-for="LinkInfo" class="form-control" />
+        <span asp-validation-for="LinkInfo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Duration">Thời lượng</label>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReleaseYear">Năm phát hành</label>
+        <input asp-for="ReleaseYear" class="form-control" />
+        <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GenreId">Thể loại</label>
+        <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="CountryId">Quốc gia</label>
+        <select asp-for="CountryId" asp-items="ViewBag.Countries" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TrailerUrl">Đường dẫn Trailer</label>
+        <input asp-for="TrailerUrl" class="form-control" />
+        <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Đường dẫn ảnh</label>
+        <input type="file" asp-for="ImageUrl" class="form-control" accept="image/*" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MovieUrl">Đường dẫn video</label>
+        <input type="file" asp-for="MovieUrl" class="form-control" accept="video/*"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
